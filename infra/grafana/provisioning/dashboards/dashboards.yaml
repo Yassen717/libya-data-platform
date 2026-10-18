@@ -1,0 +1,18 @@
+# Grafana dashboard provisioning.
+# Mounted read-only at /etc/grafana/provisioning/dashboards/.
+# Watches /var/lib/grafana/dashboards, which compose binds to
+# ./infra/grafana/dashboards — drop .json files there to provision them.
+apiVersion: 1
+
+providers:
+  - name: libya-platform
+    orgId: 1
+    folder: "Libya Platform"
+    folderUid: libya-platform
+    type: file
+    disableDeletion: false
+    allowUiUpdates: true
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards
+      foldersFromFilesStructure: false

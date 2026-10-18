@@ -1,0 +1,20 @@
+<!--
+  ClickHouse server config fragment — enables the built-in Prometheus
+  exporter on a dedicated protocol port.
+
+  Mounted at /etc/clickhouse-server/config.d/prometheus.xml; files in
+  config.d are merged into the main config, so this needs no server.xml
+  edits. The port binds on all interfaces because the official image sets
+  <listen_host>::</listen_host> in docker_related_config.xml — Prometheus
+  reaches it internally as clickhouse:8001 (no host port publish needed).
+-->
+<clickhouse>
+    <prometheus>
+        <endpoint>/metrics</endpoint>
+        <port>8001</port>
+        <metrics>true</metrics>
+        <events>true</events>
+        <asynchronous_metrics>true</asynchronous_metrics>
+        <status_info>true</status_info>
+    </prometheus>
+</clickhouse>

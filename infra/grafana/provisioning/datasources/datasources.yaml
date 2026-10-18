@@ -1,0 +1,37 @@
+# Grafana datasource provisioning.
+# Mounted read-only at /etc/grafana/provisioning/datasources/.
+#
+# Requires the ClickHouse plugin in the container:
+#   GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
+# The password matches the dev default in .env.example — never commit a
+# real secret here.
+apiVersion: 1
+
+datasources:
+  - name: ClickHouse
+    uid: clickhouse
+    type: grafana-clickhouse-datasource
+    access: proxy
+    isDefault: true
+    editable: true
+    jsonData:
+      host: clickhouse
+      port: 9000
+      protocol: native
+      username: ly
+      defaultDatabase: libya
+      defaultTable: events
+      secure: false
+      tlsSkipVerify: false
+    secureJsonData:
+      password: devpass
+
+  - name: Prometheus
+    uid: prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: false
+    editable: true
+    jsonData:
+      timeInterval: 15s
