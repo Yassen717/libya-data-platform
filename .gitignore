@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# Node (future dashboard)
+node_modules/
+dist/
+
+# Env & secrets
+.env
+.env.local
+*.pem
+*.key
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Data dumps
+*.csv
+*.parquet
+data/

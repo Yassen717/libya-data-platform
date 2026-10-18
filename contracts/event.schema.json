@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://libya-data-platform/contracts/event.schema.json",
+  "title": "PlatformEvent",
+  "description": "Canonical envelope for every record on ly.events.raw. Producers MUST emit this shape; the stream processor validates against it and routes violations to ly.events.dlq.",
+  "type": "object",
+  "required": [
+    "event_id",
+    "source",
+    "event_time",
+    "ingested_at",
+    "title",
+    "country"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Globally unique id. Format: {source}:{stable-source-id-or-uuid}."
+    },
+    "source": {
+      "type": "string",
+      "enum": ["gdelt", "worldbank", "scraper", "manual"],
+      "description": "Producer that emitted the event."
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Stable identifier in the upstream system (e.g. GDELT URL hash, World Bank indicator+year). Used for dedupe."
+    },
+    "event_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the event occurred upstream, UTC."
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the producer emitted the event, UTC."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable headline or indicator label."
+    },
+    "url": {
+      "type": "string",
+      "description": "Canonical source URL, if any."
+    },
+    "country": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2, e.g. LY."
+    },
+    "category": {
+      "type": "string",
+      "enum": ["politics", "economy", "energy", "resources", "society", "conflict", "environment", "other"],
+      "default": "other"
+    },
+    "actors": {
+      "type": "array",
+      "items": {"type": "string"},
+      "default": []
+    },
+    "lat": {"type": ["number", "null"]},
+    "lon": {"type": ["number", "null"]},
+    "tone": {
+      "type": ["number", "null"],
+      "description": "Sentiment/tone score if the source provides one (GDELT avg tone), range roughly -100..100."
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": {"type": ["number", "string", "null"]},
+      "default": {},
+      "description": "Numeric payloads for non-news events, e.g. {\"value\": 3.7, \"indicator\": \"NY.GDP.PETR.RT.ZS\"}."
+    },
+    "raw": {
+      "type": "object",
+      "description": "Lossless upstream payload for reprocessing."
+    }
+  }
+}
