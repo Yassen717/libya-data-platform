@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ly-ingest"
+version = "0.1.0"
+description = "Ingestion producers for the Libya Data Platform: GDELT + World Bank -> Kafka."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31",
+    "kafka-python-ng>=2.2.3",
+    "psycopg[binary]>=3.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "responses>=0.25",
+    "jsonschema>=4.21",
+]
+
+[tool.setuptools]
+packages = ["ly_ingest"]
