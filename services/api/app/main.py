@@ -93,8 +93,8 @@ EVENT_COLUMNS = (
 
 SUMMARY_DAILY_SQL = """
 SELECT source, category,
-       sum(events) AS events,
-       sum(avg_tone * events) / nullIf(sum(events), 0) AS avg_tone
+       sum(events_daily.events) AS events,
+       sum(avg_tone * events_daily.events) / nullIf(sum(events_daily.events), 0) AS avg_tone
 FROM libya.events_daily
 WHERE day >= today() - INTERVAL 30 DAY
 GROUP BY source, category
