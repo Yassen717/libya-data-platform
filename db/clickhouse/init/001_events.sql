@@ -24,7 +24,10 @@ CREATE TABLE IF NOT EXISTS libya.events
 ENGINE = MergeTree
 PARTITION BY toYYYYMM(event_time)
 ORDER BY (source, event_time, event_id)
-TTL event_time + INTERVAL 2 YEAR;
+-- Retention keys on when we ingested the data, not when the event
+-- happened: historical sources (e.g. World Bank series back to 1960)
+-- legitimately have ancient event_time values.
+TTL ingested_at + INTERVAL 2 YEAR;
 
 -- Mirror of the Kafka DLQ for inspecting poisoned records.
 CREATE TABLE IF NOT EXISTS libya.dead_events
