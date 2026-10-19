@@ -1,0 +1,7 @@
+<clickhouse>
+    <!-- Open the server to the compose network. Upstream's default config
+         binds loopback only; config.d entries replace same-named elements,
+         so this substitutes both loopback binds. IPv4 only — the dev stack's
+         Docker network has no IPv6, and '::' fails on the interserver port. -->
+    <listen_host>0.0.0.0</listen_host>
+</clickhouse>

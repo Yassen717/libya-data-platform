@@ -46,7 +46,6 @@ services:
       - --pandaproxy-addr=internal://0.0.0.0:8082,external://0.0.0.0:18082
       - --advertise-pandaproxy-addr=internal://redpanda:8082,external://localhost:18082
       - --schema-registry-addr=internal://0.0.0.0:8081,external://0.0.0.0:18081
-      - --advertise-schema-registry-addr=internal://redpanda:8081,external://localhost:18081
       - --rpc-addr=redpanda:33145
       - --advertise-rpc-addr=redpanda:33145
     ports:
