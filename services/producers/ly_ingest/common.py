@@ -137,7 +137,6 @@ class KafkaPublisher:
             key_serializer=lambda k: k.encode("utf-8"),
             value_serializer=lambda v: json.dumps(v, separators=(",", ":")).encode("utf-8"),
             acks="all",
-            enable_idempotence=True,
             linger_ms=500,
         )
         self._pending: list[Any] = []
